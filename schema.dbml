@@ -1,0 +1,28 @@
+// Use DBML to define your database structure
+// Use this file for ERD visualization in VS Code (with the dbdiagram.io extension)
+
+Table items {
+  id integer [primary key]
+  user_id integer [ref: > users.id]
+  timestamp datetime
+  created_at timestamp
+}
+
+Table users {
+  id integer [primary key]
+  username varchar
+  email varchar [unique]
+  created_at timestamp
+}
+
+Table auth_methods {
+  id integer [primary key]
+  user_id integer [ref: > users.id]
+  provider varchar // "google", "apple", "normal", "android"
+  external_id varchar // ID from provider
+  created_at timestamp
+}
+
+// Add more tables as the project grows
+// Use 'Ref' to define relationships:
+// Ref: table1.col1 > table2.col2

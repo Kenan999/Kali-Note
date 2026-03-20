@@ -9,10 +9,19 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
 
     var body: some View {
+        if !isLoggedIn {
+            LoginView(isLoggedIn: $isLoggedIn)
+        } else {
+            mainContent
+        }
+    }
+
+    private var mainContent: some View {
         NavigationSplitView {
             List {
                 ForEach(items) { item in
@@ -33,6 +42,9 @@ struct ContentView: View {
                     EditButton()
                 }
 #endif
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Logout") { isLoggedIn = false }
+                }
                 ToolbarItem {
                     Button(action: addItem) {
                         Label("Add Item", systemImage: "plus")
