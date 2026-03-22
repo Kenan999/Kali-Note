@@ -1,48 +1,32 @@
 # Kali Note
 
-Kali Note is a professional, local-first note-taking framework designed for cross-platform performance and secure intelligence. We prioritize data integrity, native speed, and a foundation architected for semantic search.
+Kali Note is a professional, local-first note-taking application designed as an intelligent **"second brain"** for users. Inspired by leading platforms like **OneNote** and **Notion**, Kali Note focuses on high-performance cross-platform continuity, secure data sovereignty, and a foundation built for advanced artificial intelligence integration.
 
 ## 🏗 Core Architecture
 
-Kali Note is built with a sophisticated multi-tier architecture to ensure reliability across the Apple ecosystem and beyond.
+The system is built on a sophisticated multi-tier architecture, engineered for maximum reliability and native speed:
 
-- **iOS Client**: Native **SwiftUI** implementation utilizing **SwiftData** for robust local persistence.
-- **Backend Hub**: A RESTful **Flask** infrastructure managing identity and state synchronization.
-- **Database Layer**: Normalized **SQLite** schema designed for consistent state management.
-- **Security**: Environment-centric configuration via `.env` abstraction.
+- **Native Clients**: High-fidelity implementations across **iOS (SwiftUI)**, **Android (Jetpack Compose)**, and **Desktop**, ensuring fluid responsiveness and native performance.
+- **Backend Hub**: A RESTful **Flask** infrastructure providing an intelligent central hub for identity management and state orchestration.
+- **Database Layer**: A complex, normalized **SQLite** schema designed to manage distributed state with precision across local and cloud environments.
+- **Security**: Professional-grade environment abstraction and encrypted tunneling for secure data transit.
 
-## ✨ Implemented Features
+## ✨ Core Value Proposition
 
-- 🔐 **Multi-Method Authentication**: Native integration for Apple ID, Google OAuth, and secure Email/Password accounts.
-- 📬 **Security Gateboarding**: Dynamic 6-digit OTP verification enforced for all paths.
-- ☁️ **State Synchronization**: Automatic background syncing to maintain parity between devices.
-- 🎨 **Professional Interface**: A curated dark mode UI specialized for power users.
-
----
-
-## 🚀 Setup
-
-Kali Note requires a `.env` file in the project root for local configuration:
-
-1.  **Define Secrets**:
-    ```bash
-    NGROK_AUTH_TOKEN=[your_token]
-    GOOGLE_CLIENT_ID=[your_client_id]
-    GOOGLE_CLIENT_SECRET=[your_client_secret]
-    ```
-2.  **Boot System**:
-    - **Backend**: `python3 app.py`
-    - **Tunnel**: `ngrok http 3000`
+- 🧠 **Second Brain Intelligence**: Architected to store, organize, and retrieve information with the speed of thought.
+- ☁️ **Flexible Storage Control**: A distributed database structure allowing users to seamlessly balance local performance with cloud-based availability.
+- 📬 **Seamless Parity**: Real-time synchronization engine maintaining consistency across all authorized devices in the ecosystem.
+- 🎨 **Premium Experience**: A minimalist, high-end interface specialized for professional power users and creative productivity.
 
 ---
 
-## 🪐 Development Roadmap
+## 🚀 Future Roadmap: Semantic Memory Engine
 
-The architecture is engineered to transition into a **Semantic Memory Engine**:
+Kali Note is evolving from a note-taking tool into a proactive **Semantic Memory Engine**:
 
-- **Phase 1**: Contextual Search & Knowledge Retrieval.
-- **Phase 2**: Automated Note Summarization.
-- **Phase 3**: Offline AI intelligence.
+- **AI-Runtime Integration**: Deep integration of LLMs for automated note summarization, contextual enrichment, and proactive insight generation.
+- **Intelligent Knowledge Retrieval**: Moving beyond keyword search into semantic understanding of your captured notes.
+- **Enhanced User Experience**: New runtime features focused on lowering friction and increasing the value of every captured thought.
 
 ---
 
