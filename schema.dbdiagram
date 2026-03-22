@@ -5,22 +5,64 @@
   "detailLevel": "All",
   "tablePositions": [
     {
-      "name": "items",
-      "schemaName": "public",
-      "x": -255,
-      "y": -323
-    },
-    {
       "name": "users",
       "schemaName": "public",
-      "x": -282,
-      "y": 83
+      "x": -5561.101521345638,
+      "y": 958.6272592392365
     },
     {
-      "name": "auth_methods",
+      "name": "devices",
       "schemaName": "public",
-      "x": 160.01025390625,
-      "y": -238
+      "x": -5297.394272667667,
+      "y": 880.8959509146589
+    },
+    {
+      "name": "device_users",
+      "schemaName": "public",
+      "x": -5517.768554533923,
+      "y": 1365.9999522655608
+    },
+    {
+      "name": "notebooks",
+      "schemaName": "public",
+      "x": -5946.347701818254,
+      "y": 801.7762627976879
+    },
+    {
+      "name": "pages",
+      "schemaName": "public",
+      "x": -5950.128168580403,
+      "y": 1012.4087247496163
+    },
+    {
+      "name": "objects",
+      "schemaName": "public",
+      "x": -5889.139169445234,
+      "y": 1239.0516780932276
+    },
+    {
+      "name": "object_texts",
+      "schemaName": "public",
+      "x": -6399.508195516614,
+      "y": 1313.4991780436621
+    },
+    {
+      "name": "object_files",
+      "schemaName": "public",
+      "x": -6125.679406802007,
+      "y": 1579.7281233064095
+    },
+    {
+      "name": "object_audio",
+      "schemaName": "public",
+      "x": -5850.688046274025,
+      "y": 1645.9947166687525
+    },
+    {
+      "name": "object_forms",
+      "schemaName": "public",
+      "x": -5533.844100464563,
+      "y": 1636.6941421617576
     }
   ],
   "tableGroupCollapseStates": [],
@@ -30,13 +72,13 @@
       "firstFieldNames": [
         "id"
       ],
-      "firstTableName": "users",
+      "firstTableName": "devices",
       "firstSchemaName": "public",
       "firstRelation": "1",
       "secondFieldNames": [
-        "user_id"
+        "device_id"
       ],
-      "secondTableName": "items",
+      "secondTableName": "device_users",
       "secondSchemaName": "public",
       "secondRelation": "*",
       "checkPoints": []
@@ -51,9 +93,114 @@
       "secondFieldNames": [
         "user_id"
       ],
-      "secondTableName": "auth_methods",
+      "secondTableName": "device_users",
       "secondSchemaName": "public",
       "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "users",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "user_id"
+      ],
+      "secondTableName": "notebooks",
+      "secondSchemaName": "public",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "notebooks",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "notebook_id"
+      ],
+      "secondTableName": "pages",
+      "secondSchemaName": "public",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "pages",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "page_id"
+      ],
+      "secondTableName": "objects",
+      "secondSchemaName": "public",
+      "secondRelation": "*",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "objects",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "object_id"
+      ],
+      "secondTableName": "object_texts",
+      "secondSchemaName": "public",
+      "secondRelation": "1",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "objects",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "object_id"
+      ],
+      "secondTableName": "object_files",
+      "secondSchemaName": "public",
+      "secondRelation": "1",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "objects",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "object_id"
+      ],
+      "secondTableName": "object_audio",
+      "secondSchemaName": "public",
+      "secondRelation": "1",
+      "checkPoints": []
+    },
+    {
+      "firstFieldNames": [
+        "id"
+      ],
+      "firstTableName": "objects",
+      "firstSchemaName": "public",
+      "firstRelation": "1",
+      "secondFieldNames": [
+        "object_id"
+      ],
+      "secondTableName": "object_forms",
+      "secondSchemaName": "public",
+      "secondRelation": "1",
       "checkPoints": []
     }
   ]
