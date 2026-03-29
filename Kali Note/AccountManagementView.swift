@@ -9,7 +9,7 @@ struct AccountManagementView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(hex: "080C14").ignoresSafeArea()
+                KaliColor.background.ignoresSafeArea()
                 
                 List {
                     savedAccountsSection
@@ -23,7 +23,7 @@ struct AccountManagementView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Fertig") { dismiss() }
-                        .foregroundColor(.white.opacity(0.8))
+                        .foregroundColor(KaliColor.primaryText.opacity(0.8))
                         .fontWeight(.semibold)
                 }
             }
@@ -57,7 +57,7 @@ struct AccountManagementView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             Text(savedUser.name)
                                 .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.white)
+                                .foregroundColor(KaliColor.primaryText)
                             HStack(spacing: 4) {
                                 Text(savedUser.email)
                                 if let device = savedUser.deviceName {
@@ -66,7 +66,7 @@ struct AccountManagementView: View {
                                 }
                             }
                             .font(.system(size: 12))
-                            .foregroundColor(.white.opacity(0.4))
+                            .foregroundColor(KaliColor.secondaryText)
                         }
                         
                         Spacer()
@@ -77,7 +77,7 @@ struct AccountManagementView: View {
                         } else {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 10, weight: .bold))
-                                .foregroundColor(.white.opacity(0.15))
+                                .foregroundColor(KaliColor.secondaryText.opacity(0.2))
                         }
                     }
                     .padding(.vertical, 4)
@@ -87,7 +87,7 @@ struct AccountManagementView: View {
         } header: {
             Text("Gespeicherte Konten")
                 .font(.system(size: 13, weight: .bold))
-                .foregroundColor(.white.opacity(0.4))
+                .foregroundColor(KaliColor.secondaryText)
         } footer: {
             Text("Wische nach links, um ein Konto zu entfernen.")
                 .font(.caption)
@@ -117,14 +117,14 @@ struct AccountManagementView: View {
                     } else {
                         Image(systemName: "chevron.up.chevron.down")
                             .font(.system(size: 14))
-                            .foregroundColor(.white.opacity(0.2))
+                            .foregroundColor(KaliColor.secondaryText.opacity(0.4))
                     }
                 }
                 .padding(.vertical, 4)
             }
             .disabled(authService.isLoading)
         }
-        .listRowBackground(Color.white.opacity(0.04))
+        .listRowBackground(KaliColor.primaryText.opacity(0.04))
     }
     
     private var developerSection: some View {
@@ -170,7 +170,7 @@ struct AccountManagementView: View {
             .overlay(
                 Text(String(name.prefix(2)).uppercased())
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.white.opacity(0.6))
+                    .foregroundColor(KaliColor.secondaryText)
             )
     }
 }

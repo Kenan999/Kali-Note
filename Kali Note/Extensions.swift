@@ -31,3 +31,41 @@ extension Color {
         )
     }
 }
+
+// MARK: - Adaptive Colors (Kali Theme)
+
+struct KaliColor {
+    static var background: Color {
+        Color(UIColor { traitCollection in
+            return traitCollection.userInterfaceStyle == .dark ? 
+                UIColor(red: 0.04, green: 0.06, blue: 0.1, alpha: 1) : // Deep Navy
+                UIColor(red: 0.97, green: 0.98, blue: 1.0, alpha: 1)  // Soft White
+        })
+    }
+    
+    static var cardBackground: Color {
+        Color(UIColor { traitCollection in
+            return traitCollection.userInterfaceStyle == .dark ?
+                UIColor.white.withAlphaComponent(0.05) :
+                UIColor.black.withAlphaComponent(0.05)
+        })
+    }
+    
+    static var primaryText: Color {
+        Color(UIColor { traitCollection in
+            return traitCollection.userInterfaceStyle == .dark ? .white : .black
+        })
+    }
+    
+    static var secondaryText: Color {
+        Color(UIColor { traitCollection in
+            return traitCollection.userInterfaceStyle == .dark ? 
+                UIColor.white.withAlphaComponent(0.6) : 
+                UIColor.black.withAlphaComponent(0.6)
+        })
+    }
+    
+    static var accent: Color {
+        Color.indigo
+    }
+}

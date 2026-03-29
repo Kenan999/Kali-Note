@@ -76,7 +76,7 @@ struct ContentView: View {
                         .background(
                             Circle()
                                 .fill(LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                .shadow(color: .black.opacity(0.3), radius: 10, x: 0, y: 5)
+                                .shadow(color: .black.opacity(colorScheme == .dark ? 0.3 : 0.15), radius: 10, x: 0, y: 5)
                         )
                 }
                 .padding(.leading, 20)
@@ -99,7 +99,7 @@ struct ContentView: View {
                         Button { showSettings = true } label: {
                             Image(systemName: "gearshape.fill")
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.white.opacity(0.8))
+                                .foregroundColor(KaliColor.primaryText.opacity(0.8))
                         }
                         
                         // 3. Cloud Sync Status (New)
@@ -121,7 +121,7 @@ struct ContentView: View {
                         } label: {
                             Image(systemName: "line.3.horizontal.decrease.circle")
                                 .font(.system(size: 16))
-                                .foregroundColor(.white.opacity(0.8))
+                                .foregroundColor(KaliColor.primaryText.opacity(0.8))
                         }
                     }
                 }

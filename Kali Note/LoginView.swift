@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @Binding var isLoggedIn: Bool
     @StateObject private var authService = AuthService.shared
+    @Environment(\.colorScheme) var colorScheme
     
     @State private var email = ""
     @State private var password = ""
@@ -20,11 +21,11 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            // Deep Dark Background with Subtle Glows
-            Color(red: 0.04, green: 0.06, blue: 0.1) // Deep Navy
+            // Adaptive Background
+            KaliColor.background
                 .ignoresSafeArea()
             
-            // Subtle Ambient Glows
+            // Subtle Ambient Glows (Hidden in Light Mode for cleaner look)
             ZStack {
                 Circle()
                     .fill(Color.indigo.opacity(0.15))
@@ -39,6 +40,7 @@ struct LoginView: View {
                     .offset(x: 150, y: 300)
             }
             .ignoresSafeArea()
+            .opacity(colorScheme == .dark ? 1.0 : 0.0)
             
             VStack(spacing: 35) {
                 // Logo & Header with Orbiting Themes
@@ -50,12 +52,12 @@ struct LoginView: View {
                     VStack(spacing: 4) {
                         Text("Kali Note")
                             .font(.system(size: 34, weight: .bold))
-                            .foregroundColor(.white)
+                            .foregroundColor(KaliColor.primaryText)
                             .tracking(2.0)
                         
                         Text("All aspects of life, captured.")
                             .font(.caption)
-                            .foregroundColor(.white.opacity(0.4))
+                            .foregroundColor(KaliColor.secondaryText)
                             .tracking(0.5)
                     }
                 }
@@ -70,13 +72,13 @@ struct LoginView: View {
                     }
                 }
                 .padding(32)
-                .background(.ultraThinMaterial.opacity(0.8)) // Darker material feel
+                .background(.ultraThinMaterial.opacity(colorScheme == .dark ? 0.8 : 0.4))
                 .cornerRadius(24)
                 .overlay(
                     RoundedRectangle(cornerRadius: 24)
-                        .stroke(.white.opacity(0.05), lineWidth: 1)
+                        .stroke(KaliColor.primaryText.opacity(0.05), lineWidth: 1)
                 )
-                .shadow(color: .black.opacity(0.5), radius: 30, x: 0, y: 20)
+                .shadow(color: .black.opacity(colorScheme == .dark ? 0.5 : 0.1), radius: 30, x: 0, y: 20)
                 .padding(.horizontal, 24)
                 
                 Spacer()
@@ -137,7 +139,7 @@ struct LoginView: View {
                     .foregroundColor(.indigo.opacity(0.9))
                     .padding(.vertical, 8)
                     .padding(.horizontal, 16)
-                    .background(.white.opacity(0.05))
+                    .background(KaliColor.primaryText.opacity(0.05))
                     .cornerRadius(20)
                 }
             }
@@ -147,16 +149,16 @@ struct LoginView: View {
                     .font(.system(size: 16, weight: .semibold))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 16)
-                    .background(Color.white)
-                    .foregroundColor(.black)
+                    .background(KaliColor.primaryText)
+                    .foregroundColor(KaliColor.background)
                     .cornerRadius(12)
-                    .shadow(color: .white.opacity(0.1), radius: 10)
+                    .shadow(color: KaliColor.primaryText.opacity(0.1), radius: 10)
             }
             
             HStack(spacing: 15) {
-                Rectangle().frame(height: 0.5).foregroundColor(.white.opacity(0.15))
-                Text("ODER").font(.system(size: 10, weight: .bold)).foregroundColor(.white.opacity(0.3))
-                Rectangle().frame(height: 0.5).foregroundColor(.white.opacity(0.15))
+                Rectangle().frame(height: 0.5).foregroundColor(KaliColor.primaryText.opacity(0.15))
+                Text("ODER").font(.system(size: 10, weight: .bold)).foregroundColor(KaliColor.primaryText.opacity(0.3))
+                Rectangle().frame(height: 0.5).foregroundColor(KaliColor.primaryText.opacity(0.15))
             }
             
             SocialLoginSection(isLoggedIn: $isLoggedIn)
@@ -168,7 +170,7 @@ struct LoginView: View {
                         isLoggedIn = true
                     }
                 }
-                .foregroundColor(.white.opacity(0.5))
+                .foregroundColor(KaliColor.secondaryText)
                 .font(.system(size: 14, weight: .medium))
                 
                 Button {
@@ -188,10 +190,10 @@ struct LoginView: View {
     private var verificationSection: some View {
         VStack(spacing: 25) {
             Text("Verifizierung")
-                .font(.headline).foregroundColor(.white).tracking(0.5)
+                .font(.headline).foregroundColor(KaliColor.primaryText).tracking(0.5)
             
             Text("Wir haben einen 6-stelligen Code an \(authService.pendingEmail) gesendet. Bitte gib diesen unten ein.")
-                .font(.caption).foregroundColor(.white.opacity(0.6)).multilineTextAlignment(.center)
+                .font(.caption).foregroundColor(KaliColor.secondaryText).multilineTextAlignment(.center)
             
             if let error = authService.errorMessage {
                 Text(error).font(.caption).foregroundColor(.red.opacity(0.8)).padding(.horizontal).multilineTextAlignment(.center)
@@ -215,7 +217,7 @@ struct LoginView: View {
             } label: {
                 Text("Code verifizieren")
                     .font(.system(size: 16, weight: .semibold)).frame(maxWidth: .infinity).padding(.vertical, 16)
-                    .background(Color.white).foregroundColor(.black).cornerRadius(12)
+                    .background(KaliColor.primaryText).foregroundColor(KaliColor.background).cornerRadius(12)
             }
             
             Button("Zurück zum Login") {
@@ -247,6 +249,7 @@ struct LoginView: View {
 struct OrbitingThemesView: View {
     @State private var rotation: Double = 0
     @State private var animateThemes = false
+    @Environment(\.colorScheme) var colorScheme
     
     // 20 Themes representing 'All Aspects of Life'
     let themes = [
@@ -262,7 +265,7 @@ struct OrbitingThemesView: View {
             ForEach(0..<themes.count, id: \.self) { index in
                 Image(systemName: themes[index])
                     .font(.system(size: CGFloat.random(in: 12...18), weight: .light))
-                    .foregroundColor(.white.opacity(Double.random(in: 0.05...0.2)))
+                    .foregroundColor(KaliColor.primaryText.opacity(Double.random(in: 0.1...0.3)))
                     .offset(x: CGFloat.random(in: -100...100), y: CGFloat.random(in: -100...100))
                     .rotationEffect(.degrees(Double.random(in: 0...360)))
                     .rotationEffect(.degrees(rotation * (index % 2 == 0 ? 1 : -1) * 0.5)) // Slow opposite rotations
@@ -294,19 +297,19 @@ struct customTextField: View {
     var body: some View {
         HStack {
             Image(systemName: icon)
-                .foregroundColor(.white.opacity(0.6))
+                .foregroundColor(KaliColor.secondaryText)
                 .frame(width: 20)
             TextField(placeholder, text: $text)
-                .foregroundColor(.white)
+                .foregroundColor(KaliColor.primaryText)
                 #if canImport(UIKit)
                 .keyboardType(keyboardType)
                 .textContentType(contentType)
                 #endif
         }
         .padding()
-        .background(.white.opacity(0.1))
+        .background(KaliColor.primaryText.opacity(0.05))
         .cornerRadius(10)
-        .overlay(RoundedRectangle(cornerRadius: 10).stroke(.white.opacity(0.2)))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(KaliColor.primaryText.opacity(0.1)))
     }
 }
 
@@ -321,18 +324,18 @@ struct customSecureField: View {
     var body: some View {
         HStack {
             Image(systemName: icon)
-                .foregroundColor(.white.opacity(0.6))
+                .foregroundColor(KaliColor.secondaryText)
                 .frame(width: 20)
             SecureField(placeholder, text: $text)
-                .foregroundColor(.white)
+                .foregroundColor(KaliColor.primaryText)
                 #if canImport(UIKit)
                 .textContentType(contentType)
                 #endif
         }
         .padding()
-        .background(.white.opacity(0.1))
+        .background(KaliColor.primaryText.opacity(0.05))
         .cornerRadius(10)
-        .overlay(RoundedRectangle(cornerRadius: 10).stroke(.white.opacity(0.2)))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(KaliColor.primaryText.opacity(0.1)))
     }
 }
 
@@ -377,6 +380,7 @@ struct SocialLoginSection: View {
 
 struct LoadingOverlay: View {
     let message: String
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack {
@@ -387,16 +391,16 @@ struct LoadingOverlay: View {
                     .scaleEffect(1.2)
                 
                 Text(message)
-                    .foregroundColor(.white)
+                    .foregroundColor(KaliColor.primaryText)
                     .font(.system(size: 15, weight: .medium))
                     .tracking(0.5)
             }
             .padding(40)
-            .background(.ultraThinMaterial)
+            .background(.ultraThinMaterial.opacity(colorScheme == .dark ? 0.8 : 0.4))
             .cornerRadius(20)
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
-                    .stroke(.white.opacity(0.1), lineWidth: 1)
+                    .stroke(KaliColor.primaryText.opacity(0.1), lineWidth: 1)
             )
         }
     }
@@ -410,6 +414,7 @@ struct SocialButton: View {
     let textColor: Color
     var isGoogle: Bool = false
     let action: () -> Void
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         Button(action: action) {
@@ -435,9 +440,9 @@ struct SocialButton: View {
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(isGoogle ? .clear : .white.opacity(0.1), lineWidth: 1)
+                    .stroke(isGoogle ? KaliColor.primaryText.opacity(0.1) : .white.opacity(0.1), lineWidth: 1)
             )
-            .shadow(color: .black.opacity(isGoogle ? 0.1 : 0), radius: 5, y: 2)
+            .shadow(color: .black.opacity(isGoogle ? (colorScheme == .dark ? 0.1 : 0.05) : 0), radius: 5, y: 2)
         }
     }
 }

@@ -12,7 +12,7 @@ struct OTPVerificationView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(red: 0.04, green: 0.06, blue: 0.1).ignoresSafeArea()
+                KaliColor.background.ignoresSafeArea()
                 
                 VStack(spacing: 30) {
                     VStack(spacing: 12) {
@@ -23,11 +23,11 @@ struct OTPVerificationView: View {
                         
                         Text("Verifizierung erforderlich")
                             .font(.title2.bold())
-                            .foregroundColor(.white)
+                            .foregroundColor(KaliColor.primaryText)
                         
                         Text("Wir haben einen 6-stelligen Code an\n**\(authService.pendingEmail)** gesendet.")
                             .font(.subheadline)
-                            .foregroundColor(.white.opacity(0.7))
+                            .foregroundColor(KaliColor.secondaryText)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal)
                         
@@ -48,10 +48,10 @@ struct OTPVerificationView: View {
                             .multilineTextAlignment(.center)
                             .keyboardType(.numberPad)
                             .padding()
-                            .background(Color.white.opacity(0.05))
+                            .background(KaliColor.primaryText.opacity(0.05))
                             .cornerRadius(12)
-                            .foregroundColor(.white)
-                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.white.opacity(0.1), lineWidth: 1))
+                            .foregroundColor(KaliColor.primaryText)
+                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(KaliColor.primaryText.opacity(0.1), lineWidth: 1))
                         
                         if let error = authService.errorMessage {
                             Text(error)
@@ -78,8 +78,8 @@ struct OTPVerificationView: View {
                         }
                         .frame(maxWidth: .infinity)
                         .padding()
-                        .background(Color.white)
-                        .foregroundColor(.black)
+                        .background(KaliColor.primaryText)
+                        .foregroundColor(KaliColor.background)
                         .cornerRadius(12)
                         .disabled(verificationCode.count < 6 || authService.isLoading || timeLeft == 0)
                         
@@ -91,7 +91,7 @@ struct OTPVerificationView: View {
                         } label: {
                             Text("Code erneut senden")
                                 .font(.subheadline.bold())
-                                .foregroundColor(.white.opacity(0.6))
+                                .foregroundColor(KaliColor.secondaryText)
                         }
                         .padding(.top, 10)
                         .disabled(authService.isLoading)
@@ -109,7 +109,7 @@ struct OTPVerificationView: View {
                         authService.needsVerification = false
                         dismiss()
                     }
-                    .foregroundColor(.white.opacity(0.6))
+                    .foregroundColor(KaliColor.secondaryText)
                 }
             }
         }

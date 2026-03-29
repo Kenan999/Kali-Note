@@ -23,9 +23,9 @@ struct EmailAddAccountView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(red: 0.04, green: 0.06, blue: 0.1).ignoresSafeArea()
+                KaliColor.background.ignoresSafeArea()
                 
-                VStack(spacing: 25) {
+                VStack(spacing: 30) {
                     // Modern Segmented Picker
                     Picker("Modus", selection: $authMode) {
                         ForEach(AuthMode.allCases, id: \.self) { mode in
@@ -73,7 +73,7 @@ struct EmailAddAccountView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Abbrechen") { dismiss() }
-                        .foregroundColor(.white.opacity(0.6))
+                        .foregroundColor(KaliColor.secondaryText)
                 }
             }
             .onSubmit {
@@ -88,28 +88,28 @@ struct EmailAddAccountView: View {
     private var passwordField: some View {
         HStack {
             Image(systemName: "lock")
-                .foregroundColor(.white.opacity(0.6))
+                .foregroundColor(KaliColor.secondaryText)
                 .frame(width: 20)
             
             if isPasswordVisible {
                 TextField("Passwort", text: $password)
-                    .foregroundColor(.white)
+                    .foregroundColor(KaliColor.primaryText)
             } else {
                 SecureField("Passwort", text: $password)
-                    .foregroundColor(.white)
+                    .foregroundColor(KaliColor.primaryText)
             }
             
             Button {
                 isPasswordVisible.toggle()
             } label: {
                 Image(systemName: isPasswordVisible ? "eye.slash.fill" : "eye.fill")
-                    .foregroundColor(.white.opacity(0.4))
+                    .foregroundColor(KaliColor.secondaryText)
             }
         }
         .padding()
-        .background(.white.opacity(0.1))
+        .background(KaliColor.primaryText.opacity(0.05))
         .cornerRadius(12)
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(.white.opacity(0.15)))
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(KaliColor.primaryText.opacity(0.1), lineWidth: 1))
     }
     
     private var submitButton: some View {
@@ -118,7 +118,7 @@ struct EmailAddAccountView: View {
         } label: {
             HStack {
                 if authService.isLoading {
-                    ProgressView().tint(.black)
+                    ProgressView().tint(KaliColor.background)
                 } else {
                     Text(authMode == .login ? "Jetzt Anmelden" : "Konto Erstellen")
                         .fontWeight(.bold)
@@ -126,8 +126,8 @@ struct EmailAddAccountView: View {
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color.white)
-            .foregroundColor(.black)
+            .background(KaliColor.primaryText)
+            .foregroundColor(KaliColor.background)
             .cornerRadius(12)
         }
         .padding(.horizontal)
@@ -154,17 +154,17 @@ struct EmailAddAccountView: View {
     private func customTextField(placeholder: String, text: Binding<String>, icon: String, keyboardType: UIKeyboardType = .default) -> some View {
         HStack {
             Image(systemName: icon)
-                .foregroundColor(.white.opacity(0.6))
+                .foregroundColor(KaliColor.secondaryText)
                 .frame(width: 20)
             TextField(placeholder, text: text)
-                .foregroundColor(.white)
+                .foregroundColor(KaliColor.primaryText)
                 .keyboardType(keyboardType)
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.never)
         }
         .padding()
-        .background(.white.opacity(0.1))
+        .background(KaliColor.primaryText.opacity(0.05))
         .cornerRadius(12)
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(.white.opacity(0.15)))
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(KaliColor.primaryText.opacity(0.1), lineWidth: 1))
     }
 }

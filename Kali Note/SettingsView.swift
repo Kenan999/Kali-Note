@@ -27,16 +27,16 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(UIColor.systemGroupedBackground).ignoresSafeArea()
+                KaliColor.background.ignoresSafeArea()
                 
                 List {
                     Section {
                         HStack {
                             Image(systemName: "globe")
-                                .foregroundColor(.white.opacity(0.6))
+                                .foregroundColor(KaliColor.secondaryText)
                                 .frame(width: 24)
                             Text("Sprache")
-                                .foregroundColor(.white)
+                                .foregroundColor(KaliColor.primaryText)
                             Spacer()
                             Picker("", selection: $appLanguage) {
                                 Text("System").tag("System")
@@ -49,10 +49,10 @@ struct SettingsView: View {
                         
                         HStack {
                             Image(systemName: "paintpalette")
-                                .foregroundColor(.white.opacity(0.6))
+                                .foregroundColor(KaliColor.secondaryText)
                                 .frame(width: 24)
                             Text("Erscheinungsbild")
-                                .foregroundColor(.white)
+                                .foregroundColor(KaliColor.primaryText)
                             Spacer()
                             Picker("", selection: $appTheme) {
                                 Text("System").tag("System")
@@ -65,9 +65,9 @@ struct SettingsView: View {
                     } header: {
                         Text("App-Einstellungen")
                             .font(.system(size: 13, weight: .bold))
-                            .foregroundColor(.white.opacity(0.4))
+                            .foregroundColor(KaliColor.secondaryText)
                     }
-                    .listRowBackground(Color.white.opacity(0.03))
+                    .listRowBackground(KaliColor.primaryText.opacity(0.03))
                     
                     Section {
                         NavigationLink {
@@ -75,120 +75,115 @@ struct SettingsView: View {
                         } label: {
                             HStack {
                                 Image(systemName: "key.fill")
-                                    .foregroundColor(.white.opacity(0.6))
+                                    .foregroundColor(KaliColor.secondaryText)
                                     .frame(width: 24)
                                 Text("LLM API Keys")
-                                    .foregroundColor(.white)
+                                    .foregroundColor(KaliColor.primaryText)
                                 Spacer()
                                 Text(apiKeyCountText)
                                     .font(.caption)
-                                    .foregroundColor(.white.opacity(0.4))
+                                    .foregroundColor(KaliColor.secondaryText)
                             }
                         }
                     } header: {
                         Text("API-Integration")
                             .font(.system(size: 13, weight: .bold))
-                            .foregroundColor(.white.opacity(0.4))
+                            .foregroundColor(KaliColor.secondaryText)
                     }
-                    .listRowBackground(Color.white.opacity(0.03))
+                    .listRowBackground(KaliColor.primaryText.opacity(0.03))
                     
-                            Section {
-                                HStack {
-                                    Image(systemName: "arrow.triangle.2.circlepath")
-                                        .foregroundColor(.white.opacity(0.6))
-                                        .frame(width: 24)
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text("Daten-Synchronisation")
-                                            .foregroundColor(.primary)
-                                        HStack(spacing: 4) {
-                                            Text("Letzter Sync:")
-                                            Text(lastSyncTime)
-                                                .foregroundColor(.green)
-                                                .fontWeight(.medium)
-                                        }
-                                        .font(.caption2)
-                                    }
-                                    Spacer()
-                                    Toggle("", isOn: $isSyncEnabled)
-                                        .tint(.gray.opacity(0.5))
+                    Section {
+                        HStack {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                                .foregroundColor(KaliColor.secondaryText)
+                                .frame(width: 24)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Daten-Synchronisation")
+                                    .foregroundColor(KaliColor.primaryText)
+                                HStack(spacing: 4) {
+                                    Text("Letzter Sync:")
+                                    Text(lastSyncTime)
+                                        .foregroundColor(.green)
+                                        .fontWeight(.medium)
                                 }
-                                
-                                if !isSyncEnabled {
-                                    if isSyncing {
-                                        VStack(alignment: .leading, spacing: 8) {
-                                            HStack {
-                                                Text("Synchronisierung läuft...")
-                                                    .font(.system(size: 14))
-                                                    .foregroundColor(.white.opacity(0.6))
-                                                Spacer()
-                                                Text("\(Int(syncProgress * 100))%")
-                                                    .font(.system(size: 14, weight: .bold))
-                                                    .foregroundColor(.white)
-                                            }
-                                            
-                                            // Premium Progress Bar
-                                            GeometryReader { geo in
-                                                ZStack(alignment: .leading) {
-                                                    RoundedRectangle(cornerRadius: 2)
-                                                        .fill(Color.white.opacity(0.05))
-                                                    RoundedRectangle(cornerRadius: 2)
-                                                        .fill(LinearGradient(colors: [.white.opacity(0.4), .white.opacity(0.8)], startPoint: .leading, endPoint: .trailing))
-                                                        .frame(width: geo.size.width * syncProgress)
-                                                }
-                                            }
-                                            .frame(height: 4)
-                                        }
-                                        .padding(.vertical, 8)
-                                    } else {
-                                        Button {
-                                            startManualSync()
-                                        } label: {
-                                            HStack {
-                                                Spacer()
-                                                Text("Jetzt synchronisieren")
-                                                    .font(.system(size: 14, weight: .bold))
-                                                    .foregroundColor(.white)
-                                                Spacer()
-                                            }
-                                            .padding(.vertical, 10)
-                                            .background(Color.white.opacity(0.05))
-                                            .cornerRadius(8)
-                                            .overlay(
-                                                RoundedRectangle(cornerRadius: 8)
-                                                    .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                                            )
-                                        }
-                                        .padding(.vertical, 4)
+                                .font(.caption2)
+                            }
+                            Spacer()
+                            Toggle("", isOn: $isSyncEnabled)
+                                .tint(KaliColor.secondaryText.opacity(0.5))
+                        }
+                        
+                        if !isSyncEnabled {
+                            if isSyncing {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    HStack {
+                                        Text("Synchronisierung läuft...")
+                                            .font(.system(size: 14))
+                                            .foregroundColor(KaliColor.primaryText.opacity(0.6))
+                                        Spacer()
+                                        Text("\(Int(syncProgress * 100))%")
+                                            .font(.system(size: 14, weight: .bold))
+                                            .foregroundColor(KaliColor.primaryText)
                                     }
+                                    
+                                    GeometryReader { geo in
+                                        ZStack(alignment: .leading) {
+                                            RoundedRectangle(cornerRadius: 2)
+                                                .fill(KaliColor.primaryText.opacity(0.05))
+                                            RoundedRectangle(cornerRadius: 2)
+                                                .fill(LinearGradient(colors: [KaliColor.primaryText.opacity(0.4), KaliColor.primaryText.opacity(0.8)], startPoint: .leading, endPoint: .trailing))
+                                                .frame(width: geo.size.width * syncProgress)
+                                        }
+                                    }
+                                    .frame(height: 4)
                                 }
-                            } header: {
+                                .padding(.vertical, 8)
+                            } else {
+                                Button {
+                                    startManualSync()
+                                } label: {
+                                    HStack {
+                                        Spacer()
+                                        Text("Jetzt synchronisieren")
+                                            .font(.system(size: 14, weight: .bold))
+                                            .foregroundColor(KaliColor.background)
+                                        Spacer()
+                                    }
+                                    .padding(.vertical, 10)
+                                    .background(KaliColor.primaryText)
+                                    .cornerRadius(8)
+                                }
+                                .padding(.vertical, 4)
+                            }
+                        }
+                    } header: {
                         Text("Synchronisation")
                             .font(.system(size: 13, weight: .bold))
-                            .foregroundColor(.white.opacity(0.4))
+                            .foregroundColor(KaliColor.secondaryText)
                     }
-                    .listRowBackground(Color.white.opacity(0.03))
+                    .listRowBackground(KaliColor.primaryText.opacity(0.03))
                     
                     Section {
                         HStack {
                             Text("Version")
-                                .foregroundColor(.white.opacity(0.6))
+                                .foregroundColor(KaliColor.secondaryText)
                             Spacer()
                             Text("1.2.5")
-                                .foregroundColor(.white)
+                                .foregroundColor(KaliColor.primaryText)
                         }
                         HStack {
                             Text("Build")
-                                .foregroundColor(.white.opacity(0.6))
+                                .foregroundColor(KaliColor.secondaryText)
                             Spacer()
                             Text("2026.03.21")
-                                .foregroundColor(.white)
+                                .foregroundColor(KaliColor.primaryText)
                         }
                     } header: {
                         Text("Info")
                             .font(.system(size: 13, weight: .bold))
-                            .foregroundColor(.white.opacity(0.4))
+                            .foregroundColor(KaliColor.secondaryText)
                     }
-                    .listRowBackground(Color.white.opacity(0.03))
+                    .listRowBackground(KaliColor.primaryText.opacity(0.03))
                 }
                 .listStyle(.insetGrouped)
                 .scrollContentBackground(.hidden)
@@ -197,7 +192,7 @@ struct SettingsView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Fertig") { dismiss() }
-                        .foregroundColor(.white.opacity(0.8))
+                        .foregroundColor(KaliColor.primaryText.opacity(0.8))
                         .fontWeight(.semibold)
                 }
             }
@@ -212,7 +207,7 @@ struct SettingsView: View {
     
     private var apiKeyManagementView: some View {
         ZStack {
-            Color(UIColor.systemGroupedBackground).ignoresSafeArea()
+            KaliColor.background.ignoresSafeArea()
             List {
                 Section {
                     apiKeyRow("Key 1", text: $apiKey1)
@@ -225,7 +220,7 @@ struct SettingsView: View {
                 } footer: {
                     Text("Diese Schlüssel werden lokal verschlüsselt gespeichert.")
                 }
-                .listRowBackground(Color.white.opacity(0.03))
+                .listRowBackground(KaliColor.primaryText.opacity(0.04))
             }
             .listStyle(.insetGrouped)
             .scrollContentBackground(.hidden)
@@ -236,10 +231,10 @@ struct SettingsView: View {
     private func apiKeyRow(_ label: String, text: Binding<String>) -> some View {
         HStack {
             Text(label)
-                .foregroundColor(.white.opacity(0.6))
+                .foregroundColor(KaliColor.secondaryText)
                 .frame(width: 60, alignment: .leading)
             SecureField("Schlüssel eingeben", text: text)
-                .foregroundColor(.white)
+                .foregroundColor(KaliColor.primaryText)
         }
     }
     
@@ -257,7 +252,6 @@ struct SettingsView: View {
                     isSyncing = false
                     syncProgress = 0
                     
-                    // Update timestamp
                     let formatter = DateFormatter()
                     formatter.dateFormat = "dd. MMM yyyy, HH:mm"
                     lastSyncTime = formatter.string(from: Date())
@@ -289,13 +283,13 @@ struct InfoRow: View {
     var body: some View {
         HStack {
             Image(systemName: icon)
-                .foregroundColor(.blue)
+                .foregroundColor(KaliColor.secondaryText)
                 .frame(width: 24)
             Text(title)
-                .foregroundColor(.white.opacity(0.8))
+                .foregroundColor(KaliColor.secondaryText)
             Spacer()
             Text(value)
-                .foregroundColor(.white)
+                .foregroundColor(KaliColor.primaryText)
         }
     }
 }
@@ -306,13 +300,11 @@ struct SectionHeader: View {
     var body: some View {
         Text(title.uppercased())
             .font(.system(size: 13, weight: .bold))
-            .foregroundColor(.white.opacity(0.4))
+            .foregroundColor(KaliColor.secondaryText)
             .tracking(1.0)
     }
 }
 
-// Reuse hex color extension from LoginView or define here if needed.
-// For now, assuming it's available or I'll add it to a common place if I find one.
 #Preview {
     SettingsView()
         .environmentObject(AuthService.shared)

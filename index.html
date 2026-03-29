@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
@@ -18,6 +19,15 @@
             --text-main: #ffffff;
             --text-dim: #94a3b8;
             --font-stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            --body-bg: transparent;
+        }
+
+        body.light-mode {
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(0, 0, 0, 0.08);
+            --text-main: #1e293b;
+            --text-dim: #64748b;
+            --body-bg: #f8fafc;
         }
 
         * {
@@ -28,15 +38,49 @@
         }
 
         html, body {
-            background: transparent;
+            background: var(--body-bg);
             color: var(--text-main);
             width: 100%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
         }
+
+        /* --- Theme Toggle --- */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--glass-bg);
+            border: 0.5px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            padding: 0.6rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+            color: var(--accent-primary);
+        }
+
+        .theme-toggle .sun-icon { display: none; }
+        body.light-mode .theme-toggle .moon-icon { display: none; }
+        body.light-mode .theme-toggle .sun-icon { display: block; }
 
         .container {
             width: 100%;
@@ -184,6 +228,10 @@
     </style>
 </head>
 <body id="main-body">
+    <button class="theme-toggle" id="theme-toggle" title="Toggle Hell Mode (Light/Dark)">
+        <i class="fas fa-moon moon-icon"></i>
+        <i class="fas fa-sun sun-icon"></i>
+    </button>
     <div class="container">
         <!-- Section 1: Project Vision -->
         <div id="vision" class="glass-box">
@@ -282,6 +330,23 @@
                 sections.forEach(s => s.classList.add('active'));
             }
         }
+
+        // --- Theme Logic ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.getElementById('main-body');
+
+        // Check for saved theme
+        const savedTheme = localStorage.getItem('kali-theme');
+        if (savedTheme === 'light') {
+            body.classList.add('light-mode');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const currentTheme = body.classList.contains('light-mode') ? 'light' : 'dark';
+            localStorage.setItem('kali-theme', currentTheme);
+        });
+
         window.addEventListener('hashchange', updateVisibility);
         window.addEventListener('load', updateVisibility);
         updateVisibility();
